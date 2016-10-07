@@ -3,25 +3,32 @@ def print_action(action, amount)
   puts "You've asked to #{action} an amount of #{amount}$. Performing your request..."
 end
 
-balance = 1000
+balance = rand(100..1000)
 
 print "Please enter your personal name:  "
 name = gets.chomp.capitalize!
 
 print "What action would you like to perform?  "
 action = gets.chomp
-
-amount = 20
-
-print_action(amount)
+if action != "view" 
+  print "What is the amount you would like to #{action}? "
+  amount = gets.chomp.to_i
+end
 
 if action == "withdraw"
+  puts "Current balance: #{balance}$"
+  print_action(action, amount)
   balance -= amount
-elsif action == "deposit"
-  balance += amount
-
-
 puts "Hi #{name}, Your current balance was changed and is now: #{balance}$"  
+elsif action == "deposit"
+  puts "Current balance: #{balance}$"
+  print_action(action, amount)
+  balance += amount
+puts "Hi #{name}, Your current balance was changed and is now: #{balance}$"  
+elsif action == "view"
+  puts "No change in balance. #{balance}$"
+end
+
 
 
 # Bank home assignment
