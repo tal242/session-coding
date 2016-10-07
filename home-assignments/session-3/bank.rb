@@ -2,31 +2,45 @@
 def print_action(action, amount)
   puts "You've asked to #{action} an amount of #{amount}$. Performing your request..."
 end
+def dry_cur(balance) #display current balance
+  puts "Current balance is: #{balance}$"
+end
+def dry_upd(name, balance) #display balance change
+  puts "Hi #{name}, Your current balance was changed and is now: #{balance}$"
+end
+def action_exception(x) # https://www.youtube.com/watch?v=B00aZ1Uq2Uc
+  if (x != "view") && (x != "deposit") && (x != "withdraw")
+    raise ArgumentError, 'Requested action unknown'
+  end
+end
 
-balance = rand(100..1000)
+balance = rand(100..1000) #random balance.
 
 print "Please enter your personal name:  "
 name = gets.chomp.capitalize!
 
 print "What action would you like to perform?  "
-action = gets.chomp
+action = gets.chomp.to_s
+
+action_exception(action) 
+
 if action != "view" 
   print "What is the amount you would like to #{action}? "
   amount = gets.chomp.to_i
 end
 
 if action == "withdraw"
-  puts "Current balance: #{balance}$"
+  dry_cur(balance)
   print_action(action, amount)
   balance -= amount
-puts "Hi #{name}, Your current balance was changed and is now: #{balance}$"  
+  dry_upd(name, balance)
 elsif action == "deposit"
-  puts "Current balance: #{balance}$"
+  dry_cur(balance)
   print_action(action, amount)
   balance += amount
-puts "Hi #{name}, Your current balance was changed and is now: #{balance}$"  
+  dry_upd(name, balance)
 elsif action == "view"
-  puts "No change in balance. #{balance}$"
+  dry_cur(balance)
 end
 
 
@@ -47,3 +61,6 @@ end
 #   5. Okay. now pay attention to the "balance" variable. There is no way to know what was the initial balance before the change. Please also print what was the previous balance in every place that you change it ("withdraw" and "deposit")
 #   6. What happens when you input an unknown “action” like “stop” or “blabla”? I think this is unclear. Let’s raise an exception when an unclear action is being set as the “action” by the user input.
 #   7. And finally a question: Why did I use the “print_action” method in this code? What principle out of the “coding practices for beginners” we’ve learned (see lecture notes) does it serve? Write the answer as a comment in the code.
+#   don't repeat yourself
+
+
