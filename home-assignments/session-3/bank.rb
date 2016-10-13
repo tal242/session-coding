@@ -1,9 +1,10 @@
 # print_action method expects two parameters "action" and "amount"
-def print_action(action, amount)
+# method serves the principle of "do not repeat yourself", handeling both actions of deposit and withdraw
+def print_action(action, amount) 
   puts "You've asked to #{action} an amount of #{amount}$. Performing your request..."
 end
 
-balance = 1000
+balance = rand(100..1000)
 
 print "Please enter your personal name:  "
 name = gets.chomp.capitalize!
@@ -11,17 +12,24 @@ name = gets.chomp.capitalize!
 print "What action would you like to perform?  "
 action = gets.chomp
 
-amount = 20
+if ["withdraw", "deposit"].include? action 
+  print "Your balance is #{balance}$. What amount would you like to #{action}? "
+  amount = gets.chomp.to_i
+end
 
-print_action(amount)
+print_action(action, amount)
 
 if action == "withdraw"
   balance -= amount
 elsif action == "deposit"
   balance += amount
+elsif action == "view"
+  balance
+else
+  raise "unknown action"
+end
 
-
-puts "Hi #{name}, Your current balance was changed and is now: #{balance}$"  
+puts "Hi #{name}, Your current balance " + ((["withdraw", "deposit"].include? action) ? "was changed and " : "") + "is now: #{balance}$"  
 
 
 # Bank home assignment
