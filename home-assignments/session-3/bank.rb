@@ -1,27 +1,47 @@
 # print_action method expects two parameters "action" and "amount"
 def print_action(action, amount)
-  puts "You've asked to #{action} an amount of #{amount}$. Performing your request..."
+  if action == "view"
+    puts "You've asked to #{action} your current balance. Performing your request..."
+  else
+    puts "You've asked to #{action} an amount of #{amount}$. Performing your request..."
+  end
 end
 
-balance = 1000
+balance = rand(100..1000)
+old_balance = balance
 
 print "Please enter your personal name:  "
 name = gets.chomp.capitalize!
 
-print "What action would you like to perform?  "
+print "What action would you like to perform?(withdraw ,deposit or view )  "
 action = gets.chomp
 
-amount = 20
+if action == "withdraw"
+  puts "How much woluld you like to withdraw:  "
+  amount = gets.to_i
+elsif action == "deposit"
+  puts "How much woluld you like to deposit:  "
+  amount = gets.to_i
+elsif action == "view"
+  amount = 0
+else
+  raise "An error has occured my machine can not preform this action it can only do withdraw ,deposit or view. "
+end
 
-print_action(amount)
-
+print_action(action,amount)
+# Why you used it here? -
+# you wanted to call the functions you created on lines 2-8 and print the current action for user output.
 if action == "withdraw"
   balance -= amount
+  puts "Hi #{name}, Your current balance was changed from #{old_balance} and is now: #{balance}$"
 elsif action == "deposit"
   balance += amount
+  puts "Hi #{name}, Your current balance was changed from #{old_balance} and is now: #{balance}$"
+elsif action == "view"
+  puts "Hi #{name},Your accuont balance is #{balance}$."
+end
 
 
-puts "Hi #{name}, Your current balance was changed and is now: #{balance}$"  
 
 
 # Bank home assignment
