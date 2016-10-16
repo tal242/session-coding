@@ -1,27 +1,46 @@
 # print_action method expects two parameters "action" and "amount"
-def print_action(action, amount)
+
+#Using def print_action because:
+#--Dry (Don't Repeat Yourself)--
+
+def print_action(action, amount, balance)
+  puts "--------------------------------"
+  puts "Yours balance now is: #{balance}"
   puts "You've asked to #{action} an amount of #{amount}$. Performing your request..."
 end
 
-balance = 1000
+def insert_amount
+  print "Insert amount :-"
+  amount = gets.chomp
+  amount.to_i
+end
+
+balance = rand(100..1000)
 
 print "Please enter your personal name:  "
 name = gets.chomp.capitalize!
 
-print "What action would you like to perform?  "
+print "What action would you like to perform(deposit,withdraw,view)?  "
 action = gets.chomp
 
 amount = 20
 
-print_action(amount)
-
 if action == "withdraw"
+  amount = insert_amount()
+  print_action(action,amount,balance)
   balance -= amount
+  puts "Hi #{name}, Your current balance was changed and is now: #{balance}$"
 elsif action == "deposit"
+  amount = insert_amount()
+  print_action(action,amount,balance)
   balance += amount
-
-
-puts "Hi #{name}, Your current balance was changed and is now: #{balance}$"  
+  puts "Hi #{name}, Your current balance was changed and is now: #{balance}$"
+elsif action == "view"	
+  puts "Your current balance is #{balance}"
+else
+  puts "Unknow action!!!!"
+  puts "Accept only : deposit, withdraw, view"
+end
 
 
 # Bank home assignment
