@@ -1,6 +1,5 @@
 def dogify(age)
   dogyears = (age / 7)
-  return dogyears # calm down parser
 end
 print "Please enter your name:"
 name = gets.chomp.capitalize!
